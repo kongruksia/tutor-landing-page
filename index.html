@@ -23,11 +23,11 @@
             font-family: 'Sarabun', sans-serif;
             line-height: 1.6;
             color: #333;
-            background-color: #f8f9fa;
+            background: linear-gradient(180deg, #ffffff 0%, #f0f4f8 100%);
             overflow-x: hidden;
         }
 
-        /* Animation */
+        /* Animations */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -36,6 +36,15 @@
             to {
                 opacity: 1;
                 transform: translateY(0);
+            }
+        }
+
+        @keyframes floatUp {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-8px);
             }
         }
 
@@ -48,8 +57,35 @@
             }
         }
 
-        .fade-in {
-            animation: fadeInUp 0.8s ease-out forwards;
+        @keyframes glow {
+            0%, 100% {
+                text-shadow: 0 0 5px rgba(27, 79, 168, 0.5);
+            }
+            50% {
+                text-shadow: 0 0 15px rgba(27, 79, 168, 0.8);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes counterUp {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         section {
@@ -68,32 +104,54 @@
 
         /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, #ffffff 0%, #f0f4f8 100%);
-            padding: 40px 20px 60px;
+            background: linear-gradient(135deg, #1b4fa8 0%, #2563eb 50%, #1e40af 100%);
+            padding: 60px 20px 80px;
             text-align: center;
             position: relative;
+            color: white;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 80%, rgba(252, 211, 77, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(252, 211, 77, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero > * {
+            position: relative;
+            z-index: 1;
         }
 
         .hero h1 {
             font-family: 'Noto Serif Thai', serif;
-            font-size: 2.5rem;
-            color: #1b4fa8;
+            font-size: 3.2rem;
+            color: white;
             margin-bottom: 15px;
             font-weight: 700;
-            line-height: 1.3;
+            line-height: 1.2;
+            animation: floatUp 3s ease-in-out infinite;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
         @media (max-width: 768px) {
             .hero h1 {
-                font-size: 1.8rem;
+                font-size: 2rem;
             }
         }
 
         .hero .subtitle {
-            font-size: 1.3rem;
-            color: #666;
-            margin-bottom: 25px;
-            font-weight: 400;
+            font-size: 1.4rem;
+            color: #f0f4f8;
+            margin-bottom: 30px;
+            font-weight: 500;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
         @media (max-width: 768px) {
@@ -104,19 +162,27 @@
 
         .subject-tags {
             display: flex;
-            gap: 10px;
+            gap: 12px;
             justify-content: center;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             flex-wrap: wrap;
         }
 
         .tag {
-            background-color: #1b4fa8;
+            background-color: rgba(255, 255, 255, 0.2);
             color: white;
-            padding: 8px 20px;
-            border-radius: 20px;
+            padding: 10px 24px;
+            border-radius: 25px;
             font-size: 0.95rem;
             font-weight: 600;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .tag:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
         }
 
         .badges-container {
@@ -136,14 +202,20 @@
             font-size: 0.95rem;
             font-weight: 600;
             background-color: white;
-            border: 2px solid #1b4fa8;
             color: #1b4fa8;
+            border: 2px solid white;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .badge:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
         }
 
         .badge.primary {
-            background-color: #1b4fa8;
-            color: white;
-            border-color: #1b4fa8;
+            background: linear-gradient(135deg, #fcd34d, #fbbf24);
+            color: #92400e;
         }
 
         .dot {
@@ -155,36 +227,67 @@
         }
 
         .badge.free {
-            background-color: #fef3c7;
+            background: linear-gradient(135deg, #fef3c7, #fbbf24);
             color: #92400e;
             border-color: #fcd34d;
-            font-size: 1.1rem;
+            font-size: 1.15rem;
+            animation: floatUp 3s ease-in-out infinite;
         }
 
         /* Promo Banner */
         .promo-banner {
-            background: linear-gradient(135deg, #fcd34d 0%, #fbbf24 100%);
-            padding: 30px 20px;
+            background: linear-gradient(135deg, #fcd34d 0%, #fbbf24 50%, #f59e0b 100%);
+            padding: 45px 20px;
             text-align: center;
             color: #92400e;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(251, 191, 36, 0.3);
+        }
+
+        .promo-banner::before {
+            content: '✨';
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 3rem;
+            opacity: 0.3;
+            animation: floatUp 4s ease-in-out infinite;
+        }
+
+        .promo-banner::after {
+            content: '⭐';
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 3rem;
+            opacity: 0.3;
+            animation: floatUp 3.5s ease-in-out infinite;
         }
 
         .promo-banner h2 {
             font-family: 'Noto Serif Thai', serif;
-            font-size: 1.8rem;
+            font-size: 2rem;
             margin-bottom: 10px;
             font-weight: 700;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         @media (max-width: 768px) {
             .promo-banner h2 {
-                font-size: 1.4rem;
+                font-size: 1.5rem;
             }
         }
 
         .promo-banner p {
-            font-size: 1.1rem;
-            font-weight: 500;
+            font-size: 1.15rem;
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
         }
 
         /* Stats Row */
@@ -192,254 +295,341 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
-            padding: 40px 20px;
-            background-color: white;
+            padding: 50px 20px;
+            background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
         }
 
         .stat-card {
             text-align: center;
-            padding: 20px;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(27, 79, 168, 0.08);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(27, 79, 168, 0.15);
+            border-color: #fcd34d;
         }
 
         .stat-number {
-            font-size: 1.8rem;
-            color: #1b4fa8;
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #1b4fa8, #2563eb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             font-weight: 700;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             font-family: 'Noto Serif Thai', serif;
+            animation: counterUp 1s ease-out;
         }
 
         .stat-label {
-            font-size: 0.95rem;
+            font-size: 1rem;
             color: #666;
             font-weight: 500;
         }
 
         /* Credentials Section */
         .credentials {
-            padding: 40px 20px;
-            background-color: white;
+            padding: 60px 20px;
+            background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
         }
 
         .credentials h2 {
             font-family: 'Noto Serif Thai', serif;
-            font-size: 2rem;
-            color: #1b4fa8;
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #1b4fa8, #2563eb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             text-align: center;
-            margin-bottom: 35px;
+            margin-bottom: 45px;
             font-weight: 700;
         }
 
         .credentials-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
+            gap: 30px;
             max-width: 1200px;
             margin: 0 auto;
         }
 
         .credential-card {
-            background-color: #f8f9fa;
-            padding: 25px;
-            border-radius: 12px;
-            border-left: 4px solid #1b4fa8;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            padding: 30px;
+            border-radius: 15px;
+            border-left: 5px solid #1b4fa8;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(27, 79, 168, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .credential-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, rgba(252, 211, 77, 0.1), transparent);
+            border-radius: 50%;
+            pointer-events: none;
         }
 
         .credential-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(27, 79, 168, 0.1);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(27, 79, 168, 0.15);
+            border-left-color: #fcd34d;
         }
 
         .credential-icon {
-            font-size: 2.5rem;
-            margin-bottom: 12px;
+            font-size: 3rem;
+            margin-bottom: 15px;
+            animation: floatUp 3s ease-in-out infinite;
         }
 
         .credential-card h3 {
             font-family: 'Noto Serif Thai', serif;
-            color: #1b4fa8;
-            margin-bottom: 10px;
-            font-size: 1.15rem;
-            font-weight: 600;
+            background: linear-gradient(135deg, #1b4fa8, #2563eb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
+            font-size: 1.25rem;
+            font-weight: 700;
         }
 
         .credential-card p {
             font-size: 0.95rem;
             color: #666;
-            line-height: 1.5;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
         }
 
         /* Pricing Section */
         .pricing {
-            padding: 40px 20px;
-            background-color: #f8f9fa;
+            padding: 60px 20px;
+            background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
         }
 
         .pricing h2 {
             font-family: 'Noto Serif Thai', serif;
-            font-size: 2rem;
-            color: #1b4fa8;
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #1b4fa8, #2563eb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             text-align: center;
-            margin-bottom: 35px;
+            margin-bottom: 45px;
             font-weight: 700;
         }
 
         .pricing-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
             max-width: 900px;
             margin: 0 auto;
         }
 
         .price-card {
-            background-color: white;
-            padding: 30px;
-            border-radius: 12px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            padding: 40px;
+            border-radius: 15px;
             text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 10px 30px rgba(27, 79, 168, 0.1);
             position: relative;
-            border: 2px solid #e5e7eb;
+            border: 3px solid transparent;
             transition: all 0.3s ease;
         }
 
         .price-card:hover {
+            transform: translateY(-10px);
             border-color: #1b4fa8;
-            box-shadow: 0 10px 30px rgba(27, 79, 168, 0.15);
+            box-shadow: 0 20px 50px rgba(27, 79, 168, 0.2);
         }
 
         .price-card h3 {
             font-family: 'Noto Serif Thai', serif;
-            font-size: 1.3rem;
-            color: #1b4fa8;
-            margin-bottom: 15px;
-            font-weight: 600;
+            font-size: 1.4rem;
+            background: linear-gradient(135deg, #1b4fa8, #2563eb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            font-weight: 700;
         }
 
         .price {
-            font-size: 2.2rem;
-            color: #1b4fa8;
+            font-size: 2.8rem;
+            background: linear-gradient(135deg, #1b4fa8, #2563eb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             font-weight: 700;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             font-family: 'Noto Serif Thai', serif;
+            animation: counterUp 1s ease-out;
         }
 
         .price-unit {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             color: #999;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            font-weight: 500;
         }
 
         .savings-badge {
             position: absolute;
             top: -15px;
             right: 20px;
-            background-color: #fcd34d;
+            background: linear-gradient(135deg, #fcd34d, #fbbf24);
             color: #92400e;
-            padding: 8px 15px;
-            border-radius: 20px;
+            padding: 10px 18px;
+            border-radius: 25px;
             font-weight: 700;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
+            box-shadow: 0 8px 15px rgba(252, 211, 77, 0.3);
+            animation: floatUp 3s ease-in-out infinite;
         }
 
         /* Teaching Style Section */
         .teaching-style {
-            padding: 40px 20px;
-            background-color: white;
+            padding: 60px 20px;
+            background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
         }
 
         .teaching-style h2 {
             font-family: 'Noto Serif Thai', serif;
-            font-size: 2rem;
-            color: #1b4fa8;
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #1b4fa8, #2563eb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             text-align: center;
-            margin-bottom: 35px;
+            margin-bottom: 45px;
             font-weight: 700;
         }
 
         .style-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-            max-width: 1000px;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+            max-width: 1100px;
             margin: 0 auto;
         }
 
         .style-card {
-            background: linear-gradient(135deg, #f0f4f8 0%, #ffffff 100%);
-            padding: 30px;
-            border-radius: 12px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            padding: 35px;
+            border-radius: 15px;
             border: 2px solid #e5e7eb;
             transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(27, 79, 168, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .style-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(252, 211, 77, 0.15), transparent);
+            border-radius: 50%;
+            pointer-events: none;
         }
 
         .style-card:hover {
+            transform: translateY(-10px);
             border-color: #1b4fa8;
-            box-shadow: 0 10px 25px rgba(27, 79, 168, 0.1);
+            box-shadow: 0 15px 40px rgba(27, 79, 168, 0.15);
         }
 
         .style-icon {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
+            font-size: 3rem;
+            margin-bottom: 18px;
+            animation: floatUp 3s ease-in-out infinite;
         }
 
         .style-card h3 {
             font-family: 'Noto Serif Thai', serif;
-            color: #1b4fa8;
-            margin-bottom: 12px;
-            font-size: 1.15rem;
-            font-weight: 600;
+            background: linear-gradient(135deg, #1b4fa8, #2563eb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+            font-size: 1.25rem;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
         }
 
         .style-card p {
             font-size: 0.95rem;
             color: #666;
-            line-height: 1.6;
+            line-height: 1.7;
+            position: relative;
+            z-index: 1;
         }
 
         /* Contact & CTA Section */
         .contact-cta {
-            padding: 40px 20px;
-            background-color: #f8f9fa;
+            padding: 60px 20px;
+            background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
         }
 
         .contact-cta h2 {
             font-family: 'Noto Serif Thai', serif;
-            font-size: 2rem;
-            color: #1b4fa8;
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #1b4fa8, #2563eb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             font-weight: 700;
         }
 
         .contact-cards {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
             max-width: 800px;
-            margin: 0 auto 30px;
+            margin: 0 auto 40px;
         }
 
         .contact-card {
-            background-color: white;
-            padding: 25px;
-            border-radius: 12px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            padding: 30px;
+            border-radius: 15px;
             text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 8px 20px rgba(27, 79, 168, 0.08);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-8px);
+            border-color: #1b4fa8;
+            box-shadow: 0 15px 40px rgba(27, 79, 168, 0.15);
         }
 
         .contact-card h3 {
             font-family: 'Noto Serif Thai', serif;
-            color: #1b4fa8;
-            margin-bottom: 10px;
-            font-size: 1.1rem;
-            font-weight: 600;
+            background: linear-gradient(135deg, #1b4fa8, #2563eb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
+            font-size: 1.15rem;
+            font-weight: 700;
         }
 
         .contact-card p {
             font-size: 1.1rem;
-            color: #1b4fa8;
+            background: linear-gradient(135deg, #1b4fa8, #2563eb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             font-weight: 700;
             font-family: 'Sarabun', sans-serif;
             word-break: break-all;
@@ -447,23 +637,28 @@
 
         .cta-button {
             display: inline-block;
-            background: linear-gradient(135deg, #1b4fa8 0%, #1e40af 100%);
+            background: linear-gradient(135deg, #1b4fa8 0%, #2563eb 50%, #1e40af 100%);
             color: white;
-            padding: 18px 40px;
-            border-radius: 30px;
-            font-size: 1.2rem;
+            padding: 20px 50px;
+            border-radius: 35px;
+            font-size: 1.25rem;
             font-weight: 700;
             text-decoration: none;
             cursor: pointer;
             border: none;
             transition: all 0.3s ease;
-            box-shadow: 0 10px 25px rgba(27, 79, 168, 0.2);
+            box-shadow: 0 12px 35px rgba(27, 79, 168, 0.3);
             font-family: 'Sarabun', sans-serif;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(27, 79, 168, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 18px 50px rgba(27, 79, 168, 0.4);
+        }
+
+        .cta-button:active {
+            transform: translateY(-2px);
         }
 
         .cta-container {
@@ -472,16 +667,18 @@
 
         /* Footer */
         footer {
-            background-color: #1b4fa8;
+            background: linear-gradient(135deg, #1b4fa8 0%, #2563eb 50%, #1e40af 100%);
             color: white;
-            padding: 30px 20px;
+            padding: 40px 20px;
             text-align: center;
-            font-size: 0.9rem;
-            border-top: 4px solid #fcd34d;
+            font-size: 0.95rem;
+            border-top: 5px solid #fcd34d;
+            box-shadow: 0 -5px 20px rgba(27, 79, 168, 0.1);
         }
 
         footer p {
             line-height: 1.8;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
         /* Container */
@@ -494,7 +691,7 @@
         /* Responsive tweaks */
         @media (max-width: 768px) {
             .hero h1 {
-                font-size: 1.8rem;
+                font-size: 2rem;
             }
 
             .hero .subtitle {
@@ -502,7 +699,7 @@
             }
 
             .promo-banner h2 {
-                font-size: 1.3rem;
+                font-size: 1.5rem;
             }
 
             .promo-banner p {
@@ -513,16 +710,20 @@
             .teaching-style h2,
             .contact-cta h2,
             .pricing h2 {
-                font-size: 1.6rem;
+                font-size: 1.8rem;
             }
 
             .stat-number {
-                font-size: 1.5rem;
+                font-size: 2rem;
             }
 
             .cta-button {
                 font-size: 1rem;
-                padding: 15px 30px;
+                padding: 15px 35px;
+            }
+
+            .price {
+                font-size: 2rem;
             }
         }
     </style>
@@ -651,7 +852,7 @@
             </div>
             <div class="contact-card">
                 <h3>Instagram</h3>
-                <p>brightthanachoat</p>
+                <p>@brightthanachoat</p>
             </div>
         </div>
         <div class="cta-container">
