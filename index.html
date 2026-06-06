@@ -903,17 +903,17 @@
     <section class="contact-cta">
         <h2>ติดต่อเลย</h2>
         <div class="contact-cards">
-            <div class="contact-card">
+            <a href="https://line.me/R/ti/p/thanachoatnilpanit" class="contact-card" style="text-decoration: none;">
                 <h3>Line ID</h3>
                 <p>thanachoatnilpanit</p>
-            </div>
-            <div class="contact-card">
+            </a>
+            <a href="https://instagram.com/brightthanachoat" class="contact-card" style="text-decoration: none;">
                 <h3>Instagram</h3>
                 <p>@brightthanachoat</p>
-            </div>
+            </a>
         </div>
         <div class="cta-container">
-            <button class="cta-button" onclick="handleCTA()">🎁 นัดเรียนฟรีครั้งแรก — ติดต่อได้เลย!</button>
+            <a href="https://line.me/R/ti/p/thanachoatnilpanit" class="cta-button">🎁 นัดเรียนฟรีครั้งแรก — ติดต่อได้เลย!</a>
         </div>
     </section>
 
@@ -924,9 +924,13 @@
     </footer>
 
     <script>
-        function handleCTA() {
-            alert('โปรดติดต่อสอบถามเพิ่มเติมผ่าน Line ID: thanachoatnilpanit หรือ Instagram: @brightthanachoat');
-        }
+        // Add cursor pointer to contact cards for better UX
+        document.addEventListener('DOMContentLoaded', function() {
+            const contactCards = document.querySelectorAll('.contact-card');
+            contactCards.forEach(card => {
+                card.style.cursor = 'pointer';
+            });
+        });
     </script>
 </body>
 </html>
